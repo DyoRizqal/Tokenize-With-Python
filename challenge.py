@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request
 import mysql.connector
 import nltk
 from nltk.tokenize import word_tokenize
@@ -34,8 +34,8 @@ def upload_data():
     data = request.get_json()
 
     # Memperoleh nama file dan teks bahasa Inggris dari data
-    file_name = data.get("file_name")
-    text = data.get("text")
+    file_name = request.form.get("file_name")
+    text = request.form.get("text")
 
     # Proses tokenisasi
     tokens = word_tokenize(text)
