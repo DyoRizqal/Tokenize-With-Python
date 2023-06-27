@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+import os
 import mysql.connector
 import nltk
 from nltk.tokenize import word_tokenize
@@ -31,11 +32,11 @@ def connect_to_database():
 @app.route("/data/upload", methods=["POST"])
 def upload_data():
     # Menerima data dari POST request
-    data = request.get_json()
+    file = request.files["file"]  # Mengambil file yang diunggah
 
     # Memperoleh nama file dan teks bahasa Inggris dari data
-    file_name = data.get("file_name")
-    text = data.get("text")
+    file_name = file.filename
+    text = file.read().decode("utf-8")
 
     # Proses tokenisasi
     tokens = word_tokenize(text)
